@@ -1,0 +1,702 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["App"]
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "operationId": "HealthController_getHealth",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Health"]
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "operationId": "UsersController_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CurrentUserDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get current user",
+        "tags": ["Users"]
+      }
+    },
+    "/v1/webhooks/clerk": {
+      "post": {
+        "operationId": "ClerkWebhookController_handle",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["ClerkWebhook"]
+      }
+    },
+    "/v1/inngest/{path}": {
+      "get": {
+        "operationId": "InngestController_handle_get",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "post": {
+        "operationId": "InngestController_handle_post",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "put": {
+        "operationId": "InngestController_handle_put",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "delete": {
+        "operationId": "InngestController_handle_delete",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "patch": {
+        "operationId": "InngestController_handle_patch",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "options": {
+        "operationId": "InngestController_handle_options",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "head": {
+        "operationId": "InngestController_handle_head",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      },
+      "search": {
+        "operationId": "InngestController_handle_search",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Inngest"]
+      }
+    },
+    "/v1/products": {
+      "get": {
+        "operationId": "CatalogController_list",
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "pageToken",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListProductsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "List products",
+        "tags": ["Products"]
+      },
+      "post": {
+        "operationId": "CatalogController_create",
+        "parameters": [],
+        "responses": { "201": { "description": "" } },
+        "tags": ["Products"]
+      }
+    },
+    "/v1/products/{id}": {
+      "get": {
+        "operationId": "CatalogController_get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductDto" }
+              }
+            }
+          }
+        },
+        "summary": "Get product",
+        "tags": ["Products"]
+      },
+      "patch": {
+        "operationId": "CatalogController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Products"]
+      }
+    },
+    "/v1/orders": {
+      "post": {
+        "operationId": "OrdersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateOrderBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrderDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create order",
+        "tags": ["Orders"]
+      },
+      "get": {
+        "operationId": "OrdersController_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOrdersResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "List my orders",
+        "tags": ["Orders"]
+      }
+    },
+    "/v1/orders/{id}": {
+      "get": {
+        "operationId": "OrdersController_get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrderDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get order",
+        "tags": ["Orders"]
+      }
+    },
+    "/v1/orders/{id}/cancel": {
+      "post": {
+        "operationId": "OrdersController_cancel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrderDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Cancel order",
+        "tags": ["Orders"]
+      }
+    },
+    "/v1/payments/checkout": {
+      "post": {
+        "operationId": "PaymentsController_checkout",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CheckoutBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CheckoutResponseDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create checkout session",
+        "tags": ["Payments"]
+      }
+    },
+    "/v1/payments/{id}": {
+      "get": {
+        "operationId": "PaymentsController_get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaymentDto" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get payment",
+        "tags": ["Payments"]
+      }
+    },
+    "/v1/api/copilotkit/{path}": {
+      "get": {
+        "operationId": "AgentProxyController_handle_get",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "post": {
+        "operationId": "AgentProxyController_handle_post",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "put": {
+        "operationId": "AgentProxyController_handle_put",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "delete": {
+        "operationId": "AgentProxyController_handle_delete",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "patch": {
+        "operationId": "AgentProxyController_handle_patch",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "options": {
+        "operationId": "AgentProxyController_handle_options",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "head": {
+        "operationId": "AgentProxyController_handle_head",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "search": {
+        "operationId": "AgentProxyController_handle_search",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      }
+    },
+    "/v1/api/copilotkit": {
+      "get": {
+        "operationId": "AgentProxyController_handleRoot_get",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "post": {
+        "operationId": "AgentProxyController_handleRoot_post",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "put": {
+        "operationId": "AgentProxyController_handleRoot_put",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "delete": {
+        "operationId": "AgentProxyController_handleRoot_delete",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "patch": {
+        "operationId": "AgentProxyController_handleRoot_patch",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "options": {
+        "operationId": "AgentProxyController_handleRoot_options",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "head": {
+        "operationId": "AgentProxyController_handleRoot_head",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      },
+      "search": {
+        "operationId": "AgentProxyController_handleRoot_search",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AgentProxy"]
+      }
+    },
+    "/v1/admin/overview": {
+      "get": {
+        "operationId": "AdminOverviewController_get",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["AdminOverview"]
+      }
+    }
+  },
+  "info": {
+    "title": "E-Commerce API",
+    "description": "Microservice E-Commerce REST API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
+    },
+    "schemas": {
+      "CurrentUserDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "clerkId": { "type": "string" },
+          "email": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "displayName": { "type": "string" },
+          "imageUrl": { "type": "string" },
+          "role": { "type": "string" },
+          "status": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "clerkId",
+          "email",
+          "firstName",
+          "lastName",
+          "displayName",
+          "imageUrl",
+          "role",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "MoneyDto": {
+        "type": "object",
+        "properties": {
+          "amountMinor": { "type": "number" },
+          "currency": { "type": "string" }
+        },
+        "required": ["amountMinor", "currency"]
+      },
+      "ProductDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "price": { "$ref": "#/components/schemas/MoneyDto" },
+          "stockQuantity": { "type": "number" },
+          "status": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "sku": { "type": "string" },
+          "categorySlug": { "type": "string" },
+          "reorderPoint": { "type": "number" },
+          "images": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "colors": { "type": "array", "items": { "type": "string" } },
+          "sizes": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "description",
+          "price",
+          "stockQuantity",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "sku",
+          "categorySlug",
+          "reorderPoint",
+          "images",
+          "colors",
+          "sizes"
+        ]
+      },
+      "PageInfoDto": {
+        "type": "object",
+        "properties": {
+          "hasNextPage": { "type": "boolean" },
+          "nextPageToken": { "type": "string" }
+        },
+        "required": ["hasNextPage", "nextPageToken"]
+      },
+      "ListProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ProductDto" }
+          },
+          "pageInfo": { "$ref": "#/components/schemas/PageInfoDto" }
+        },
+        "required": ["products", "pageInfo"]
+      },
+      "CreateOrderItemDto": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string" },
+          "quantity": { "type": "number" }
+        },
+        "required": ["productId", "quantity"]
+      },
+      "ShippingAddressDto": {
+        "type": "object",
+        "properties": {
+          "recipientName": { "type": "string" },
+          "phone": { "type": "string" },
+          "line1": { "type": "string" },
+          "line2": { "type": "string" },
+          "city": { "type": "string" },
+          "province": { "type": "string" },
+          "postalCode": { "type": "string" },
+          "countryCode": { "type": "string" }
+        },
+        "required": [
+          "recipientName",
+          "phone",
+          "line1",
+          "city",
+          "postalCode",
+          "countryCode"
+        ]
+      },
+      "CreateOrderBodyDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CreateOrderItemDto" }
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ShippingAddressDto"
+          },
+          "idempotencyKey": { "type": "string" }
+        },
+        "required": ["items", "shippingAddress"]
+      },
+      "OrderItemDto": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string" },
+          "productName": { "type": "string" },
+          "quantity": { "type": "number" },
+          "unitPrice": { "$ref": "#/components/schemas/MoneyDto" },
+          "lineTotal": { "$ref": "#/components/schemas/MoneyDto" }
+        },
+        "required": [
+          "productId",
+          "productName",
+          "quantity",
+          "unitPrice",
+          "lineTotal"
+        ]
+      },
+      "OrderDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userId": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/OrderItemDto" }
+          },
+          "subtotal": { "$ref": "#/components/schemas/MoneyDto" },
+          "total": { "$ref": "#/components/schemas/MoneyDto" },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ShippingAddressDto"
+          },
+          "status": { "type": "string" },
+          "paymentStatus": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "customerName": { "type": "string" },
+          "customerEmail": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "userId",
+          "items",
+          "subtotal",
+          "total",
+          "shippingAddress",
+          "status",
+          "paymentStatus",
+          "createdAt",
+          "updatedAt",
+          "customerName",
+          "customerEmail"
+        ]
+      },
+      "ListOrdersResponseDto": {
+        "type": "object",
+        "properties": {
+          "orders": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/OrderDto" }
+          },
+          "pageInfo": { "$ref": "#/components/schemas/PageInfoDto" }
+        },
+        "required": ["orders", "pageInfo"]
+      },
+      "CheckoutBodyDto": {
+        "type": "object",
+        "properties": {
+          "orderId": { "type": "string" },
+          "successUrl": { "type": "string" },
+          "cancelUrl": { "type": "string" },
+          "idempotencyKey": { "type": "string" }
+        },
+        "required": ["orderId", "successUrl", "cancelUrl"]
+      },
+      "CheckoutResponseDto": {
+        "type": "object",
+        "properties": { "sessionUrl": { "type": "string" } },
+        "required": ["sessionUrl"]
+      },
+      "PaymentDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "orderId": { "type": "string" },
+          "userId": { "type": "string" },
+          "amount": { "$ref": "#/components/schemas/MoneyDto" },
+          "status": { "type": "string" },
+          "provider": { "type": "string" },
+          "providerPaymentId": { "type": "string" },
+          "createdAt": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "orderId",
+          "userId",
+          "amount",
+          "status",
+          "provider",
+          "providerPaymentId",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

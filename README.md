@@ -116,37 +116,32 @@ Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 ## 🐳 Docker & Automated CI/CD (GitHub Actions)
 
-- **Dockerfile**: Configured with Next.js `output: "standalone"` to build a lightweight production container (~100MB).
+- **Dockerfile**: Optimized multi-stage Docker build utilizing Next.js `output: "standalone"` to create a minimal production image (~180MB).
 - **CI/CD Workflow** (`.github/workflows/ci-cd.yml`):
-  - Automatically runs linting and typecheck on Pull Requests.
-  - On push to `main`, uses **AWS OIDC** to build the standalone image, pushes to **AWS ECR**, and triggers deployment.
+  - On PR & push to `main`: Runs lint checks.
+  - On push to `main`: Uses **AWS IAM OIDC** (Zero static keys) to authenticate with AWS.
+  - Injects production build arguments (`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_ADMIN_DASHBOARD_URL`, `BACKEND_API_URL`).
+  - Builds and pushes the container image to **Amazon ECR** (`prod-ecommerce-storefront`).
+  - Connects to **Amazon EKS** via IAM OIDC Access Entry and executes an instant zero-downtime rolling restart (`kubectl rollout restart deployment/storefront -n ecommerce`).
 
 ---
 
-## 🚀 How to Deploy to AWS (via Terraform & GitOps)
+## 🚀 How to Deploy to AWS
 
-For deploying the complete ecosystem to AWS, refer to our dedicated IaC & GitOps repository: [`ecommerce-devops`](https://github.com/Hieuej147/ecommerce-devops.git).
+For the complete AWS infrastructure setup, consult our primary infrastructure repository: [`ecommerce-devops`](https://github.com/Hieuej147/ecommerce-devops.git).
 
-### Quick Deployment Steps:
-1. **Clone the DevOps repository**:
+### Quick Deployment Flow:
+1. **GitHub Secrets Configuration**:
+   In this repository's **Settings** > **Secrets and variables** > **Actions** > **New repository secret**:
+   - `AWS_ROLE_ARN`: `arn:aws:iam::004285426030:role/prod-ecommerce-github-actions-role`
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: `pk_test_...`
+   - `NEXT_PUBLIC_API_URL`: `/api/backend` (Next.js internal rewrite proxy)
+   - `NEXT_PUBLIC_ADMIN_DASHBOARD_URL`: `https://admin.hieudev.click`
+2. **Deploy to Production**:
+   Push your changes to `main`:
    ```bash
-   git clone https://github.com/Hieuej147/ecommerce-devops.git devops
-   cd devops/terraform
-   cp terraform.tfvars.example terraform.tfvars
+   git add .
+   git commit -m "feat: storefront enhancement"
+   git push origin main
    ```
-2. **Fill in `terraform.tfvars`** with your AWS Account ID, domain name (`yourdomain.com`), and IAM username.
-3. **Provision Cloud Infrastructure**:
-   ```bash
-   terraform init && terraform apply
-   ```
-   *(Creates VPC, EKS Cluster, RDS PostgreSQL 16, In-Cluster Redis 7, 9 ECR repos, IAM OIDC Role, ALB, and ArgoCD)*.
-4. **Set GitHub Repository Secrets**:
-   Copy `github_actions_role_arn` from Terraform output and set in this repo's **Settings** > **Secrets and variables** > **Actions**:
-   - `AWS_ROLE_ARN`: from Terraform output
-   - `AWS_REGION`: `ap-southeast-1`
-   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Your Clerk publishable key
-5. **Point DNS & Zero Trust**:
-   - Point your domain to Cloudflare DNS.
-   - Add CNAME for `store.yourdomain.com` pointing to the ALB DNS name.
-6. **Deploy**:
-   - Push to `main` branch. GitHub Actions builds the Next.js standalone container and pushes to ECR. ArgoCD updates the Pods on EKS with zero downtime!
+   GitHub Actions will automatically test, build, push to AWS ECR, and deploy to EKS with zero downtime!

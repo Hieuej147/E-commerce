@@ -75,24 +75,16 @@ jobs:
         run: |
           docker build \
             --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
-            --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
-            --build-arg NEXT_PUBLIC_ADMIN_DASHBOARD_URL=${{ secrets.NEXT_PUBLIC_ADMIN_DASHBOARD_URL }} \
+            --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL || '/api/backend' }} \
+            --build-arg NEXT_PUBLIC_ADMIN_DASHBOARD_URL=${{ secrets.NEXT_PUBLIC_ADMIN_DASHBOARD_URL || 'https://admin.hieudev.click' }} \
+            --build-arg BACKEND_API_URL=${{ secrets.BACKEND_API_URL || 'http://api-gateway:3000' }} \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-      - name: Update GitOps Manifest (ArgoCD)
-        if: env.MANIFEST_REPO != ''
-        env:
-          MANIFEST_REPO: ${{ secrets.MANIFEST_REPO }} # e.g. username/gitops-manifests
-          GIT_TOKEN: ${{ secrets.GITOPS_GITHUB_TOKEN }}
+      - name: Deploy to Amazon EKS (Rolling Restart)
         run: |
-          git clone https://x-access-token:${GIT_TOKEN}@github.com/${MANIFEST_REPO}.git gitops-repo
-          cd gitops-repo
-          # Update image tag in values.yaml or kustomize
-          sed -i 's/tag: .*/tag: "'${{ github.sha }}'"/' helm/storefront/values.yaml || true
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore(storefront): deploy image ${{ github.sha }}" || echo "No changes"
-          git push origin main
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION || 'ap-southeast-1' }} --name ${{ secrets.EKS_CLUSTER_NAME || 'ecommerce' }}
+          kubectl rollout restart deployment/storefront -n ecommerce
+          kubectl rollout status deployment/storefront -n ecommerce --timeout=180s

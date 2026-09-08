@@ -87,4 +87,5 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION || 'ap-southeast-1' }} --name ${{ secrets.EKS_CLUSTER_NAME || 'ecommerce' }}
           kubectl rollout restart deployment/storefront -n ecommerce
-          kubectl rollout status deployment/storefront -n ecommerce --timeout=180s
+          kubectl rollout status deployment/storefront -n ecommerce --timeout=300s
+

@@ -133,10 +133,10 @@ For the complete AWS infrastructure setup, consult our primary infrastructure re
 ### Quick Deployment Flow:
 1. **GitHub Secrets Configuration**:
    In this repository's **Settings** > **Secrets and variables** > **Actions** > **New repository secret**:
-   - `AWS_ROLE_ARN`: `arn:aws:iam::004285426030:role/prod-ecommerce-github-actions-role`
+   - `AWS_ROLE_ARN`: `arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prod-ecommerce-github-actions-role`
    - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: `pk_test_...`
    - `NEXT_PUBLIC_API_URL`: `/api/backend` (Next.js internal rewrite proxy)
-   - `NEXT_PUBLIC_ADMIN_DASHBOARD_URL`: `https://admin.hieudev.click`
+   - `NEXT_PUBLIC_ADMIN_DASHBOARD_URL`: `https://admin.yourdomain.com`
 2. **Deploy to Production**:
    Push your changes to `main`:
    ```bash

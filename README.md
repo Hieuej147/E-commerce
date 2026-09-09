@@ -1,6 +1,6 @@
 # 🛒 E-Commerce Customer Storefront
 
-Modern, high-performance customer-facing storefront web application built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, **TanStack React Query**, **Three.js**, and **Clerk Authentication**.
+Modern, high-performance customer-facing storefront web application built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, **TanStack React Query**, and **Clerk Authentication**.
 
 ---
 
@@ -11,7 +11,7 @@ This project is part of an integrated 4-part microservices platform:
 | Repository | Tech Stack | Role & Link |
 | :--- | :--- | :--- |
 | **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC services, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git) |
-| **Customer Storefront** (This repo) | Next.js 16, React 19, Tailwind v4, Three.js | Customer shop, 3D interactive hero canvas, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
+| **Customer Storefront** (This repo) | Next.js 16, React 19, Tailwind v4 | Customer shop, responsive featured hero banner, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
 | **Admin Dashboard** | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
 | **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, AWS EKS, AWS ECR, OIDC | Infrastructure as Code, OIDC authentication, 9 ECR registries, Kubernetes manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
 
@@ -23,7 +23,7 @@ This project is part of an integrated 4-part microservices platform:
 
 ### Key Adaptations & Improvements:
 1. **Next.js 16 App Router & Turbopack**: Replaced the basic legacy React 18 single-page app with Next.js 16 Server Components, delivering fast initial page loads, streaming SSR, and automated SEO optimization.
-2. **Interactive 3D Experience**: Integrated an interactive Three.js canvas in the hero banner for a distinctive, premium storefront aesthetic.
+2. **Modern Responsive UI**: Built with Tailwind CSS v4, featuring a clean hero showcase banner, responsive product grid, and streamlined checkout flow.
 3. **Internal API Rewrites (No CORS Issues)**: All frontend requests pass through Next.js internal rewrites (`/api/backend/:path*` -> `BACKEND_API_URL`), protecting internal backend endpoints from browser inspection and eliminating cross-origin errors.
 4. **Seamless Interconnection with Admin Dashboard**: Includes an automatic admin role detector (`AdminAccountNotice` component); when an administrator logs in, the banner presents a direct shortcut to the Admin Dashboard (`NEXT_PUBLIC_ADMIN_DASHBOARD_URL`).
 
@@ -32,7 +32,7 @@ This project is part of an integrated 4-part microservices platform:
 ## 🌟 Core Features
 
 - 🛍️ **Product Catalog & Discovery**: Instant search, category filters, and high-resolution product showcases.
-- 🎨 **Interactive 3D Hero Banner**: 3D spatial canvas that responds to user cursor movement.
+- 🎨 **Featured Hero Banner**: Prominent showcase banner for seasonal highlights and campaigns.
 - 🧺 **Cart Management**: Add, update quantity, remove items, and calculate pricing totals automatically.
 - 💳 **Stripe Online Checkout**: Direct integration with Stripe payment processing.
 - 📦 **Order Tracking**: Review purchase history, live fulfillment milestones, and delivery tracking.

@@ -1,7 +1,8 @@
 {
   "name": "e-commerce",
   "version": "0.1.0",
-  "private": true,
+  "author": "Danh Minh Hieu (@Hieuej147)",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

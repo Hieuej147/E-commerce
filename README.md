@@ -8,12 +8,12 @@ Modern, high-performance customer-facing storefront web application built with *
 
 This project is part of an integrated 4-part microservices platform:
 
-| Repository | Tech Stack | Role & Link |
-| :--- | :--- | :--- |
-| **Backend Monorepo** | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest | RESTful API Gateway, gRPC services, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git) |
-| **Customer Storefront** (This repo) | Next.js 16, React 19, Tailwind v4 | Customer shop, responsive featured hero banner, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/-E-commerce.git`](https://github.com/Hieuej147/-E-commerce.git) |
-| **Admin Dashboard** | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
-| **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, AWS EKS, AWS ECR, OIDC | Infrastructure as Code, OIDC authentication, 9 ECR registries, Kubernetes manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
+| Repository                            | Tech Stack                                        | Role & Link                                                                                                                                                                                                |
+| :------------------------------------ | :------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend Monorepo**                  | NestJS 11, gRPC, PostgreSQL, Prisma, Inngest      | RESTful API Gateway, gRPC services, Stripe & Clerk webhooks. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-backend.git`](https://github.com/Hieuej147/ecommerce-backend.git)                       |
+| **Customer Storefront** (This repo)   | Next.js 16, React 19, Tailwind v4                 | Customer shop, responsive featured hero banner, cart, Stripe checkout. <br>🔗 Repo: [`https://github.com/Hieuej147/E-commerce`](https://github.com/Hieuej147/E-commerce)                                   |
+| **Admin Dashboard**                   | React 19, Vite, TypeScript, Cloudflare Zero Trust | Backoffice management, real-time KPI metrics, orders & catalog CRUD. <br>🔗 Repo: [`https://github.com/Hieuej147/dashboard-admin-ecommern.git`](https://github.com/Hieuej147/dashboard-admin-ecommern.git) |
+| **DevOps & GitOps (IaC & Manifests)** | Terraform, Helm, AWS EKS, AWS ECR, OIDC           | Infrastructure as Code, OIDC authentication, 9 ECR registries, Kubernetes manifests. <br>🔗 Repo: [`https://github.com/Hieuej147/ecommerce-devops.git`](https://github.com/Hieuej147/ecommerce-devops.git) |
 
 ---
 
@@ -22,6 +22,7 @@ This project is part of an integrated 4-part microservices platform:
 > **Architecture Reference:** Inspired by and adapted from the e-commerce architecture pattern in [Jayce-Anh/shopping-cart-project](https://github.com/Jayce-Anh/shopping-cart-project) (originally based on [sivaprasadreddy/spring-boot-microservices-series](https://github.com/sivaprasadreddy/spring-boot-microservices-series.git)).
 
 ### Key Adaptations & Improvements:
+
 1. **Next.js 16 App Router & Turbopack**: Replaced the basic legacy React 18 single-page app with Next.js 16 Server Components, delivering fast initial page loads, streaming SSR, and automated SEO optimization.
 2. **Modern Responsive UI**: Built with Tailwind CSS v4, featuring a clean hero showcase banner, responsive product grid, and streamlined checkout flow.
 3. **Internal API Rewrites (No CORS Issues)**: All frontend requests pass through Next.js internal rewrites (`/api/backend/:path*` -> `BACKEND_API_URL`), protecting internal backend endpoints from browser inspection and eliminating cross-origin errors.
@@ -51,7 +52,7 @@ mkdir my-ecommerce && cd my-ecommerce
 
 # 2. Clone all 4 repositories
 git clone https://github.com/Hieuej147/ecommerce-backend.git backend
-git clone https://github.com/Hieuej147/-E-commerce.git storefront
+git clone https://github.com/Hieuej147/E-commerce storefront
 git clone https://github.com/Hieuej147/dashboard-admin-ecommern.git admin-dashboard
 git clone https://github.com/Hieuej147/ecommerce-devops.git devops
 
@@ -91,6 +92,7 @@ cp .env.example .env.local
 ```
 
 Ensure `.env.local` contains:
+
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
 BACKEND_API_URL=http://localhost:3000
@@ -131,6 +133,7 @@ Open [http://localhost:3001](http://localhost:3001) in your browser.
 For the complete AWS infrastructure setup, consult our primary infrastructure repository: [`ecommerce-devops`](https://github.com/Hieuej147/ecommerce-devops.git).
 
 ### Quick Deployment Flow:
+
 1. **GitHub Secrets Configuration**:
    In this repository's **Settings** > **Secrets and variables** > **Actions** > **New repository secret**:
    - `AWS_ROLE_ARN`: `arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prod-ecommerce-github-actions-role`

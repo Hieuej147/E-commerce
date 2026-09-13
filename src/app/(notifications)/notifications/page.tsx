@@ -13,15 +13,28 @@ export default function NotificationsPage() {
     if (isLoaded && !isSignedIn) void redirectToSignIn({ redirectUrl: "/notifications" });
   }, [isLoaded, isSignedIn, redirectToSignIn]);
 
-  if (!isLoaded || !isSignedIn) return <main className="flex min-h-[50vh] items-center justify-center text-sm text-gray-500">Checking your session...</main>;
+  if (!isLoaded || !isSignedIn) {
+    return (
+      <main className="flex min-h-[50vh] items-center justify-center font-mono text-xs text-outline">
+        Checking login session...
+      </main>
+    );
+  }
 
   return (
-    <main className="mx-auto mt-12 w-full max-w-5xl pb-16">
-      <header className="mb-10 flex flex-col gap-3 border-b border-gray-200 pb-8 sm:flex-row sm:items-end sm:justify-between">
+    <main className="mx-auto w-full max-w-7xl px-4 lg:px-8 py-10 pb-16 space-y-8">
+      <header className="flex flex-col gap-3 border-b border-outline pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-gray-400">Your account</p>
-          <h1 className="mt-2 text-4xl font-medium tracking-tight">Notifications</h1>
-          <p className="mt-3 text-sm text-gray-500">Updates about your orders, payments, and account.</p>
+          <div className="flex items-center gap-2 font-mono text-xs text-outline uppercase mb-1">
+            <span className="w-2 h-2 bg-secondary-container border border-primary inline-block" />
+            <span>Notifications</span>
+          </div>
+          <h1 className="font-display text-3xl md:text-5xl uppercase tracking-tight text-primary">
+            NOTIFICATIONS
+          </h1>
+          <p className="font-sans text-xs md:text-sm text-on-surface-variant mt-1">
+            Updates regarding your orders, payments, and account activity.
+          </p>
         </div>
       </header>
       <NotificationsList />

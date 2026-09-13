@@ -14,40 +14,161 @@ export function PaymentResult({ mode }: { mode: "success" | "cancel" }) {
   const orderQuery = useOrder(mode === "success" ? orderId : undefined);
 
   if (!isLoaded) {
-    return <ResultMessage icon={<LoaderCircle className="h-10 w-10 animate-spin text-gray-400" />} title="Checking your payment..." />;
+    return (
+      <ResultMessage
+        icon={<LoaderCircle className="h-10 w-10 animate-spin text-primary" />}
+        title="VERIFYING PAYMENT STATUS..."
+        description="Checking status with the payment provider."
+      />
+    );
   }
 
   if (!isSignedIn) {
-    return <ResultMessage icon={<CircleAlert className="h-10 w-10 text-amber-500" />} title="Sign in to view this payment." action={<Link href="/sign-in" className="bg-gray-900 px-5 py-3 text-sm font-medium text-white">Sign in</Link>} />;
+    return (
+      <ResultMessage
+        icon={<CircleAlert className="h-10 w-10 text-secondary" />}
+        title="SIGN IN REQUIRED"
+        description="Please sign in to view this order transaction."
+        action={
+          <Link
+            href="/sign-in"
+            className="border border-primary bg-primary text-on-primary font-mono text-xs font-bold uppercase px-6 py-3 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+          >
+            Sign In
+          </Link>
+        }
+      />
+    );
   }
 
   if (mode === "cancel") {
-    return <ResultMessage icon={<CircleAlert className="h-10 w-10 text-amber-500" />} title="Payment was cancelled." description="Your cart is still available if you want to try again." action={<Link href="/cart" className="bg-gray-900 px-5 py-3 text-sm font-medium text-white">Return to cart</Link>} />;
+    return (
+      <ResultMessage
+        icon={<CircleAlert className="h-10 w-10 text-secondary" />}
+        title="PAYMENT CANCELLED"
+        description="The checkout was cancelled. Your cart items are still saved."
+        action={
+          <Link
+            href="/cart"
+            className="border border-primary bg-primary text-on-primary font-mono text-xs font-bold uppercase px-6 py-3 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+          >
+            Return to Cart
+          </Link>
+        }
+      />
+    );
   }
 
   if (!orderId) {
-    return <ResultMessage icon={<CircleAlert className="h-10 w-10 text-red-500" />} title="We could not find this order." action={<Link href="/orders" className="underline underline-offset-4">View orders</Link>} />;
+    return (
+      <ResultMessage
+        icon={<CircleAlert className="h-10 w-10 text-error" />}
+        title="ORDER NOT FOUND"
+        description="We could not find the requested order ID."
+        action={
+          <Link
+            href="/orders"
+            className="border border-primary bg-primary text-on-primary font-mono text-xs font-bold uppercase px-6 py-3 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+          >
+            View Orders
+          </Link>
+        }
+      />
+    );
   }
 
   if (orderQuery.isPending) {
-    return <ResultMessage icon={<LoaderCircle className="h-10 w-10 animate-spin text-gray-400" />} title="Confirming your payment..." description="Stripe has returned you to the store. We are waiting for the webhook confirmation." />;
+    return (
+      <ResultMessage
+        icon={<LoaderCircle className="h-10 w-10 animate-spin text-primary" />}
+        title="CONFIRMING PAYMENT..."
+        description="Payment completed. Waiting for order confirmation."
+      />
+    );
   }
 
   if (orderQuery.isError) {
-    return <ResultMessage icon={<CircleAlert className="h-10 w-10 text-red-500" />} title="We could not confirm this order yet." description="Check your orders in a moment." action={<Link href="/orders" className="underline underline-offset-4">View orders</Link>} />;
+    return (
+      <ResultMessage
+        icon={<CircleAlert className="h-10 w-10 text-error" />}
+        title="ORDER STATUS DELAYED"
+        description="Unable to verify order status immediately. You can check your order history in a moment."
+        action={
+          <Link
+            href="/orders"
+            className="border border-primary bg-primary text-on-primary font-mono text-xs font-bold uppercase px-6 py-3 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+          >
+            Review Orders
+          </Link>
+        }
+      />
+    );
   }
 
-  const isPaid = orderQuery.data.paymentStatus === "PAID";
-  const isFailed = orderQuery.data.paymentStatus === "FAILED";
+  const order = orderQuery.data;
+  const isPaid = order?.paymentStatus === "PAID";
+  const isFailed = order?.paymentStatus === "FAILED";
 
-  return <ResultMessage
-    icon={isPaid ? <CheckCircle2 className="h-10 w-10 text-green-600" /> : <LoaderCircle className="h-10 w-10 animate-spin text-gray-400" />}
-    title={isPaid ? "Payment successful." : isFailed ? "Payment failed." : "Payment is being confirmed."}
-    description={isPaid ? "Your order is confirmed and being prepared." : isFailed ? "The payment was not completed. You can review the order and try again." : "This page will update when Stripe confirms the payment."}
-    action={<Link href="/orders" className="bg-gray-900 px-5 py-3 text-sm font-medium text-white">View orders</Link>}
-  />;
+  return (
+    <ResultMessage
+      icon={
+        isPaid ? (
+          <CheckCircle2 className="h-10 w-10 text-secondary" />
+        ) : (
+          <LoaderCircle className="h-10 w-10 animate-spin text-primary" />
+        )
+      }
+      title={
+        isPaid
+          ? "PAYMENT CONFIRMED"
+          : isFailed
+            ? "PAYMENT FAILED"
+            : "PROCESSING PAYMENT..."
+      }
+      description={
+        isPaid
+          ? "Your order has been placed successfully. Thank you for shopping with us!"
+          : isFailed
+            ? "The payment was not completed. Please try again or choose another method."
+            : "This page will update automatically once payment is confirmed."
+      }
+      action={
+        <Link
+          href="/orders"
+          className="border border-primary bg-primary text-on-primary font-mono text-xs font-bold uppercase px-6 py-3 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+        >
+          View Order Status
+        </Link>
+      }
+    />
+  );
 }
 
-function ResultMessage({ icon, title, description, action }: { icon: React.ReactNode; title: string; description?: string; action?: React.ReactNode }) {
-  return <main className="flex min-h-[60vh] items-center justify-center py-16"><section className="flex max-w-lg flex-col items-center gap-5 border border-gray-100 bg-white p-10 text-center shadow-sm">{icon}<h1 className="text-2xl font-semibold tracking-tight">{title}</h1>{description && <p className="text-sm leading-6 text-gray-500">{description}</p>}{action}</section></main>;
+function ResultMessage({
+  icon,
+  title,
+  description,
+  action,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description?: string;
+  action?: React.ReactNode;
+}) {
+  return (
+    <main className="flex min-h-[60vh] items-center justify-center px-4 py-16">
+      <section className="flex max-w-lg flex-col items-center gap-5 border border-outline bg-surface-container-lowest p-8 md:p-12 text-center shadow-hard-md clip-chamfer-md">
+        {icon}
+        <h1 className="font-display text-2xl uppercase tracking-tight text-primary">
+          {title}
+        </h1>
+        {description && (
+          <p className="font-sans text-xs md:text-sm leading-relaxed text-on-surface-variant">
+            {description}
+          </p>
+        )}
+        {action && <div className="mt-2">{action}</div>}
+      </section>
+    </main>
+  );
 }

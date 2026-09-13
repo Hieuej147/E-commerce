@@ -1,23 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Anton, Noto_Serif, Space_Grotesk, Space_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { HomeLayout } from "@/modules/home/components/layouts/home-layout";
 import { AppProviders } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const anton = Anton({
+  variable: "--font-anton",
+  weight: "400",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const notoSerif = Noto_Serif({
+  variable: "--font-noto-serif",
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
+
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "E-commerce",
-  description: "E-commerce authentication test app",
+  title: "Field Protocol Store",
+  description: "High-performance engineered tactical wear and modular hardware systems.",
 };
 
 export default function RootLayout({
@@ -29,9 +43,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+        className={`${anton.variable} ${notoSerif.variable} ${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased`}
       >
-        <body className="mx-auto p-4 sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-6xl">
+        <body className="min-h-full bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container overflow-x-hidden">
           <AppProviders>
             <HomeLayout>{children}</HomeLayout>
           </AppProviders>

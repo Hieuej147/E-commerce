@@ -20,9 +20,25 @@ export default function OrderDetailPage() {
     if (isLoaded && !isSignedIn) void redirectToSignIn({ redirectUrl: `/orders/${orderId}` });
   }, [isLoaded, isSignedIn, orderId, redirectToSignIn]);
 
-  if (!isLoaded || !isSignedIn) return <DetailMessage>Checking your session...</DetailMessage>;
-  if (orderQuery.isPending) return <DetailMessage>Loading order...</DetailMessage>;
-  if (orderQuery.isError || !orderQuery.data) return <DetailMessage tone="error"><p>We could not load this order.</p><Link href="/orders" className="mt-4 inline-block underline underline-offset-4">Back to orders</Link></DetailMessage>;
+  if (!isLoaded || !isSignedIn) {
+    return <DetailMessage>Checking login session...</DetailMessage>;
+  }
+  if (orderQuery.isPending) return <DetailMessage>Loading order details...</DetailMessage>;
+  if (orderQuery.isError || !orderQuery.data) {
+    return (
+      <DetailMessage tone="error">
+        <p className="font-mono text-xs font-bold uppercase text-error">
+          Order not found
+        </p>
+        <Link
+          href="/orders"
+          className="mt-4 inline-block border border-primary bg-primary text-on-primary font-mono text-xs uppercase px-4 py-2 hover:bg-secondary-container hover:text-on-secondary-container transition-all shadow-hard-sm"
+        >
+          Back to Orders
+        </Link>
+      </DetailMessage>
+    );
+  }
 
   const order = orderQuery.data;
   const isPaid = order.paymentStatus === "PAID";
@@ -30,24 +46,170 @@ export default function OrderDetailPage() {
   const items = order.items ?? [];
 
   return (
-    <main className="mx-auto mt-12 w-full max-w-5xl pb-16">
-      <Link href="/orders" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900"><ArrowLeft className="h-4 w-4" /> Back to orders</Link>
-      <header className="mt-8 flex flex-col gap-5 border-b border-gray-200 pb-8 sm:flex-row sm:items-end sm:justify-between">
-        <div><p className="text-xs font-medium uppercase tracking-[0.22em] text-gray-400">Order detail</p><h1 className="mt-2 font-mono text-2xl font-medium tracking-tight">#{order.id}</h1><p className="mt-3 text-sm text-gray-500">Placed {order.createdAt ? new Date(order.createdAt).toLocaleString("vi-VN", { dateStyle: "medium", timeStyle: "short" }) : "Recently"}</p></div>
-        <div className="sm:text-right"><StatusIcon paid={isPaid} failed={isFailed} /><p className="mt-2 text-sm font-medium">{formatStatus(order.status)}</p><p className="mt-1 text-xs text-gray-500">Payment: {formatStatus(order.paymentStatus)}</p></div>
+    <main className="mx-auto w-full max-w-7xl px-4 lg:px-8 py-10 pb-16 space-y-8">
+      <Link
+        href="/orders"
+        className="inline-flex items-center gap-2 font-mono text-xs text-outline hover:text-primary transition-colors"
+      >
+        <ArrowLeft className="h-4 w-4" /> Back to Orders
+      </Link>
+
+      <header className="flex flex-col gap-4 border-b border-outline pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2 font-mono text-xs text-outline uppercase mb-1">
+            <span className="w-2 h-2 bg-secondary-container border border-primary inline-block" />
+            <span>Order Details</span>
+          </div>
+          <h1 className="font-mono text-xl md:text-2xl font-bold uppercase tracking-tight text-primary">
+            ORDER #{order.id}
+          </h1>
+          <p className="mt-1 font-mono text-xs text-outline">
+            Ordered on: {order.createdAt ? new Date(order.createdAt).toLocaleString("vi-VN", { dateStyle: "medium", timeStyle: "short" }) : "Recently"}
+          </p>
+        </div>
+        <div className="sm:text-right flex sm:flex-col items-start sm:items-end gap-2">
+          <StatusIcon paid={isPaid} failed={isFailed} />
+          <div className="font-mono text-xs uppercase">
+            <span className="font-bold text-primary">STATUS: {formatStatus(order.status)}</span>
+            <span className="text-outline block text-[10px]">PAYMENT: {formatStatus(order.paymentStatus)}</span>
+          </div>
+        </div>
       </header>
 
-      {!isPaid && !isFailed && <div className="mt-8 flex items-start gap-3 border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800"><Clock3 className="mt-0.5 h-5 w-5 shrink-0" /><p>We are waiting for payment confirmation from Stripe. This page updates automatically.</p></div>}
-      {isFailed && <div className="mt-8 flex items-start gap-3 border border-red-200 bg-red-50 p-4 text-sm text-red-700"><CircleAlert className="mt-0.5 h-5 w-5 shrink-0" /><p>This payment was not completed. You can return to your cart and try again.</p></div>}
+      {!isPaid && !isFailed && (
+        <div className="flex items-start gap-3 border border-secondary-container bg-surface-container-low p-4 text-xs font-mono text-on-surface shadow-hard-sm">
+          <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+          <p>
+            Awaiting payment confirmation from Stripe. This page will update automatically.
+          </p>
+        </div>
+      )}
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.8fr]">
-        <section className="border border-gray-200 bg-white p-5 sm:p-8"><h2 className="text-lg font-semibold">Items</h2><div className="mt-6 divide-y divide-gray-100">{items.map((item) => <div key={item.productId} className="flex items-center justify-between gap-5 py-5 first:pt-0 last:pb-0"><div><p className="text-sm font-medium">{item.productName}</p><p className="mt-1 text-xs text-gray-500">Quantity: {item.quantity}</p></div><div className="text-right"><p className="text-sm">{formatVnd(item.unitPrice?.amountMinor ?? 0)}</p><p className="mt-1 text-xs text-gray-500">{formatVnd(item.lineTotal?.amountMinor ?? 0)}</p></div></div>)}</div></section>
-        <aside className="h-fit border border-gray-200 bg-white p-5 sm:p-8"><h2 className="text-lg font-semibold">Summary</h2><div className="mt-6 space-y-4 text-sm"><div className="flex justify-between gap-4"><span className="text-gray-500">Subtotal</span><span>{formatVnd(order.subtotal?.amountMinor ?? 0)}</span></div><div className="flex justify-between gap-4 border-t border-gray-200 pt-4 font-semibold"><span>Total</span><span>{formatVnd(order.total?.amountMinor ?? 0)}</span></div></div><div className="mt-8 border-t border-gray-100 pt-6"><h3 className="text-xs font-medium uppercase tracking-[0.16em] text-gray-400">Shipping to</h3>{order.shippingAddress ? <address className="mt-3 text-sm not-italic leading-6 text-gray-600">{order.shippingAddress.recipientName}<br />{order.shippingAddress.phone}<br />{order.shippingAddress.line1}{order.shippingAddress.line2 ? `, ${order.shippingAddress.line2}` : ""}<br />{order.shippingAddress.city}{order.shippingAddress.province ? `, ${order.shippingAddress.province}` : ""} {order.shippingAddress.postalCode}<br />{order.shippingAddress.countryCode}</address> : <p className="mt-3 text-sm text-gray-400">No shipping address</p>}</div></aside>
+      {isFailed && (
+        <div className="flex items-start gap-3 border border-error bg-error-container/20 p-4 text-xs font-mono text-error shadow-hard-sm">
+          <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>
+            Payment could not be completed. You can re-attempt checkout from your cart.
+          </p>
+        </div>
+      )}
+
+      <div className="grid gap-8 lg:grid-cols-12 items-start">
+        {/* Items Section */}
+        <section className="lg:col-span-8 border border-outline bg-surface-container-lowest p-6 shadow-hard-md clip-chamfer-sm">
+          <div className="flex items-center justify-between pb-3 border-b border-outline mb-4 font-mono text-xs font-bold uppercase">
+            <span>Ordered Items</span>
+            <span className="text-outline">{items.length} {items.length === 1 ? "Item" : "Items"}</span>
+          </div>
+          <div className="divide-y divide-surface-container-high">
+            {items.map((item) => (
+              <div
+                key={item.productId}
+                className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
+              >
+                <div>
+                  <p className="font-sans font-bold text-sm uppercase text-primary">
+                    {item.productName}
+                  </p>
+                  <p className="mt-0.5 font-mono text-[11px] text-outline">
+                    Quantity: {item.quantity}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-mono text-xs text-outline">
+                    {formatVnd(item.unitPrice?.amountMinor ?? 0)} / unit
+                  </p>
+                  <p className="font-sans font-bold text-sm text-primary">
+                    {formatVnd(item.lineTotal?.amountMinor ?? 0)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Summary & Destination */}
+        <aside className="lg:col-span-4 border border-outline bg-surface-container-lowest p-6 shadow-hard-md space-y-6">
+          <div>
+            <h2 className="font-mono text-xs font-bold uppercase text-primary pb-2 border-b border-outline mb-3">
+              Payment Summary
+            </h2>
+            <div className="space-y-3 font-mono text-xs">
+              <div className="flex justify-between text-on-surface-variant">
+                <span>Subtotal:</span>
+                <span className="text-primary font-bold">{formatVnd(order.subtotal?.amountMinor ?? 0)}</span>
+              </div>
+              <div className="flex justify-between text-on-surface-variant">
+                <span>Shipping:</span>
+                <span className="text-secondary font-bold uppercase">FREE</span>
+              </div>
+              <div className="flex justify-between border-t-2 border-primary pt-3 font-sans font-bold text-base text-primary">
+                <span>Total Amount:</span>
+                <span>{formatVnd(order.total?.amountMinor ?? 0)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-outline pt-4">
+            <h3 className="font-mono text-xs font-bold uppercase text-primary mb-2">
+              Delivery Address
+            </h3>
+            {order.shippingAddress ? (
+              <address className="font-mono text-xs not-italic leading-relaxed text-on-surface-variant">
+                <span className="font-bold text-primary block">{order.shippingAddress.recipientName}</span>
+                <span>{order.shippingAddress.phone}</span>
+                <br />
+                <span>{order.shippingAddress.line1}</span>
+                {order.shippingAddress.line2 ? `, ${order.shippingAddress.line2}` : ""}
+                <br />
+                <span>
+                  {order.shippingAddress.city}
+                  {order.shippingAddress.province ? `, ${order.shippingAddress.province}` : ""}
+                </span>
+                <br />
+                <span>
+                  {order.shippingAddress.postalCode} · {order.shippingAddress.countryCode}
+                </span>
+              </address>
+            ) : (
+              <p className="font-mono text-xs text-outline">No shipping address recorded</p>
+            )}
+          </div>
+        </aside>
       </div>
     </main>
   );
 }
 
-function StatusIcon({ paid, failed }: { paid: boolean; failed: boolean }) { return paid ? <CheckCircle2 className="ml-auto h-6 w-6 text-green-600" /> : failed ? <CircleAlert className="ml-auto h-6 w-6 text-red-600" /> : <Clock3 className="ml-auto h-6 w-6 text-amber-600" />; }
-function formatStatus(value?: string) { if (!value) return ""; return value.replaceAll("_", " ").toLowerCase().replace(/(^|\s)\S/g, (letter) => letter.toUpperCase()); }
-function DetailMessage({ children, tone = "muted" }: { children: React.ReactNode; tone?: "muted" | "error" }) { return <main className={`flex min-h-[50vh] items-center justify-center text-center text-sm ${tone === "error" ? "text-red-600" : "text-gray-500"}`}><div>{children}</div></main>; }
+function StatusIcon({ paid, failed }: { paid: boolean; failed: boolean }) {
+  return paid ? (
+    <CheckCircle2 className="h-6 w-6 text-secondary" />
+  ) : failed ? (
+    <CircleAlert className="h-6 w-6 text-error" />
+  ) : (
+    <Clock3 className="h-6 w-6 text-outline animate-spin" />
+  );
+}
+
+function formatStatus(value?: string) {
+  if (!value) return "";
+  return value.replaceAll("_", " ").toUpperCase();
+}
+
+function DetailMessage({
+  children,
+  tone = "muted",
+}: {
+  children: React.ReactNode;
+  tone?: "muted" | "error";
+}) {
+  return (
+    <main
+      className={`flex min-h-[50vh] items-center justify-center text-center font-mono text-xs ${
+        tone === "error" ? "text-error" : "text-outline"
+      }`}
+    >
+      <div>{children}</div>
+    </main>
+  );
+}

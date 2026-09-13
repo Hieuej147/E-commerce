@@ -1,7 +1,7 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
 import { useAppSelector } from "@/lib/store/hooks";
 import {
   selectCartHydrated,
@@ -11,19 +11,19 @@ import {
 const ShoppingCartIcon = () => {
   const hasHydrated = useAppSelector(selectCartHydrated);
   const count = useAppSelector(selectCartItemCount);
+  const formattedCount = hasHydrated ? (count < 10 ? `0${count}` : `${count}`) : "00";
 
   return (
     <Link
       href="/cart"
-      className="relative"
-      aria-label={`Shopping cart${count > 0 ? `, ${count} items` : ""}`}
+      className="flex items-center bg-primary text-on-primary px-2 py-1 sm:px-3 sm:py-1.5 border border-primary shadow-hard-sm hover:bg-secondary-container hover:text-on-secondary-container transition-all font-label-mono-bold text-xs"
+      aria-label={`Shopping cart, ${count} items`}
     >
-      <ShoppingCart className="w-4 h-4 text-gray-600" />
-      {hasHydrated && count > 0 && (
-        <span className="absolute -top-3 -right-3 bg-amber-400 text-gray-600 rounded-full w-4 h-4 flex items-center justify-center text-xs font-medium">
-          {count > 99 ? "99+" : count}
-        </span>
-      )}
+      <ShoppingBag className="w-4 h-4 sm:mr-1.5" />
+      <span className="mr-1.5 tracking-wider hidden sm:inline">CART</span>
+      <span className="bg-secondary-container text-on-secondary-container ml-1 sm:ml-0 px-1.5 font-code-comment font-bold text-[10px] sm:text-[11px]">
+        {formattedCount}
+      </span>
     </Link>
   );
 };

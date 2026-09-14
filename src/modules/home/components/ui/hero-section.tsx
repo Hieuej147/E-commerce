@@ -129,6 +129,7 @@ export function HeroSection() {
                   src="/featured.png"
                   alt="Field Protocol Technical Weatherwear"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   priority
                   className="object-cover object-center filter contrast-105"
                 />

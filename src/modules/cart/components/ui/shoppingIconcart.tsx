@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { useAppSelector } from "@/lib/store/hooks";
 import {
   selectCartHydrated,
   selectCartItemCount,
 } from "@/modules/cart/store/cart-selectors";
 
+const emptySubscribe = () => () => {};
+
 const ShoppingCartIcon = () => {
-  const [mounted, setMounted] = useState(false);
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const hasHydrated = useAppSelector(selectCartHydrated);
   const count = useAppSelector(selectCartItemCount);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isReady = mounted && hasHydrated;
+  const isReady = isClient && hasHydrated;
   const displayCount = isReady ? count : 0;
   const formattedCount = isReady ? (count < 10 ? `0${count}` : `${count}`) : "00";
 

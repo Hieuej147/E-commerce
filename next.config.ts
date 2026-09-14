@@ -1,5 +1,13 @@
 import type { NextConfig } from "next";
 
+const customStorageUrl = process.env.STORAGE_PUBLIC_URL || process.env.NEXT_PUBLIC_STORAGE_URL;
+let customStorageHost: string | null = null;
+if (customStorageUrl) {
+  try {
+    customStorageHost = new URL(customStorageUrl).hostname;
+  } catch {}
+}
+
 const nextConfig: NextConfig = {
   output: "standalone",
   transpilePackages: ["three"],
@@ -17,12 +25,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        port: "9002",
       },
       {
         protocol: "http",
         hostname: "127.0.0.1",
-        port: "9002",
       },
       {
         protocol: "https",
@@ -36,6 +42,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.amazonaws.com",
       },
+      ...(customStorageHost ? [{ protocol: "https", hostname: customStorageHost } as const] : []),
     ],
   },
   async rewrites() {

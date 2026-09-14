@@ -12,6 +12,7 @@ export function CartItem({ item }: { item: CartItemType }) {
   const imagesMap = (item.images as Record<string, string>) || {};
   const image =
     imagesMap[item.selectedColor] ??
+    imagesMap.main ??
     Object.values(imagesMap)[0] ??
     "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=400";
 

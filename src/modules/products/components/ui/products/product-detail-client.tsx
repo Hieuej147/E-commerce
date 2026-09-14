@@ -53,6 +53,7 @@ export function ProductDetailClient({ id }: { id: string }) {
   const imagesMap = (product.images as Record<string, string>) || {};
   const activeImage =
     imagesMap[currentColor] ||
+    imagesMap.main ||
     Object.values(imagesMap)[0] ||
     "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=1200";
 

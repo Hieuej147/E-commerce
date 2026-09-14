@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useParams } from "next/navigation";
 
 import { useOrder } from "@/features/orders/queries/orders.queries";
+import { useCancelOrder } from "@/features/orders/mutations/orders.mutations";
 import { formatVnd } from "@/lib/formatters/currency";
 
 export default function OrderDetailPage() {
@@ -15,6 +16,7 @@ export default function OrderDetailPage() {
   const { isLoaded, isSignedIn } = useAuth();
   const { redirectToSignIn } = useClerk();
   const orderQuery = useOrder(orderId);
+  const cancelOrderMutation = useCancelOrder();
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) void redirectToSignIn({ redirectUrl: `/orders/${orderId}` });
@@ -76,12 +78,28 @@ export default function OrderDetailPage() {
         </div>
       </header>
 
-      {!isPaid && !isFailed && (
-        <div className="flex items-start gap-3 border border-secondary-container bg-surface-container-low p-4 text-xs font-mono text-on-surface shadow-hard-sm">
-          <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
-          <p>
-            Awaiting payment confirmation from Stripe. This page will update automatically.
-          </p>
+      {!isPaid && !isFailed && order.status !== "CANCELLED" && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-secondary-container bg-surface-container-low p-4 text-xs font-mono text-on-surface shadow-hard-sm">
+          <div className="flex items-start gap-3">
+            <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+            <p>
+              Awaiting payment confirmation from Stripe. This page will update automatically.
+            </p>
+          </div>
+          {order.status === "PENDING_PAYMENT" && (
+            <button
+              type="button"
+              disabled={cancelOrderMutation.isPending}
+              onClick={() => {
+                if (window.confirm("Are you sure you want to cancel this pending order?")) {
+                  cancelOrderMutation.mutate(order.id);
+                }
+              }}
+              className="self-start sm:self-auto border border-error text-error px-3 py-1.5 uppercase font-bold text-xs hover:bg-error/10 transition cursor-pointer disabled:opacity-50"
+            >
+              {cancelOrderMutation.isPending ? "Canceling..." : "Cancel Order"}
+            </button>
+          )}
         </div>
       )}
 

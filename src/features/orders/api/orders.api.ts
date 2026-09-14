@@ -29,3 +29,9 @@ export function getOrder(api: ApiClient, orderId: string) {
   return api<OrderDto>(`/orders/${orderId}`);
 }
 
+export function cancelOrder(api: ApiClient, orderId: string) {
+  return api<OrderDto>(`/orders/${orderId}/cancel`, {
+    method: "POST",
+  });
+}
+

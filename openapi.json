@@ -5,16 +5,28 @@
       "get": {
         "operationId": "AppController_getHello",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["App"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
       }
     },
     "/v1/health": {
       "get": {
         "operationId": "HealthController_getHealth",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Health"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
       }
     },
     "/v1/me": {
@@ -26,72 +38,232 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CurrentUserDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Get current user",
-        "tags": ["Users"]
+        "tags": [
+          "Users"
+        ]
       }
     },
     "/v1/webhooks/clerk": {
       "post": {
         "operationId": "ClerkWebhookController_handle",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["ClerkWebhook"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ClerkWebhook"
+        ]
+      }
+    },
+    "/v1/inngest": {
+      "get": {
+        "operationId": "InngestController_handle_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "post": {
+        "operationId": "InngestController_handle_post",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "put": {
+        "operationId": "InngestController_handle_put",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "delete": {
+        "operationId": "InngestController_handle_delete",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "patch": {
+        "operationId": "InngestController_handle_patch",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "options": {
+        "operationId": "InngestController_handle_options",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "head": {
+        "operationId": "InngestController_handle_head",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
+      },
+      "search": {
+        "operationId": "InngestController_handle_search",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       }
     },
     "/v1/inngest/{path}": {
       "get": {
         "operationId": "InngestController_handle_get",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "post": {
         "operationId": "InngestController_handle_post",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "put": {
         "operationId": "InngestController_handle_put",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "delete": {
         "operationId": "InngestController_handle_delete",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "patch": {
         "operationId": "InngestController_handle_patch",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "options": {
         "operationId": "InngestController_handle_options",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "head": {
         "operationId": "InngestController_handle_head",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       },
       "search": {
         "operationId": "InngestController_handle_search",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Inngest"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inngest"
+        ]
       }
     },
     "/v1/products": {
@@ -102,25 +274,33 @@
             "name": "status",
             "required": false,
             "in": "query",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "search",
             "required": false,
             "in": "query",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "pageToken",
             "required": false,
             "in": "query",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "pageSize",
             "required": false,
             "in": "query",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -136,13 +316,21 @@
           }
         },
         "summary": "List products",
-        "tags": ["Products"]
+        "tags": [
+          "Products"
+        ]
       },
       "post": {
         "operationId": "CatalogController_create",
         "parameters": [],
-        "responses": { "201": { "description": "" } },
-        "tags": ["Products"]
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ]
       }
     },
     "/v1/products/{id}": {
@@ -153,7 +341,9 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -161,13 +351,17 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProductDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDto"
+                }
               }
             }
           }
         },
         "summary": "Get product",
-        "tags": ["Products"]
+        "tags": [
+          "Products"
+        ]
       },
       "patch": {
         "operationId": "CatalogController_update",
@@ -176,11 +370,34 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Products"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ]
+      }
+    },
+    "/v1/products/upload-url": {
+      "post": {
+        "operationId": "CatalogController_getUploadUrl",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Presigned upload URL generated"
+          }
+        },
+        "summary": "Get a presigned S3 upload URL for product media",
+        "tags": [
+          "Products"
+        ]
       }
     },
     "/v1/orders": {
@@ -191,7 +408,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateOrderBodyDto" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderBodyDto"
+              }
             }
           }
         },
@@ -200,14 +419,22 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Create order",
-        "tags": ["Orders"]
+        "tags": [
+          "Orders"
+        ]
       },
       "get": {
         "operationId": "OrdersController_list",
@@ -224,9 +451,15 @@
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "List my orders",
-        "tags": ["Orders"]
+        "tags": [
+          "Orders"
+        ]
       }
     },
     "/v1/orders/{id}": {
@@ -237,7 +470,9 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -245,14 +480,22 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Get order",
-        "tags": ["Orders"]
+        "tags": [
+          "Orders"
+        ]
       }
     },
     "/v1/orders/{id}/cancel": {
@@ -263,7 +506,9 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -271,14 +516,22 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OrderDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Cancel order",
-        "tags": ["Orders"]
+        "tags": [
+          "Orders"
+        ]
       }
     },
     "/v1/payments/checkout": {
@@ -289,7 +542,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CheckoutBodyDto" }
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutBodyDto"
+              }
             }
           }
         },
@@ -298,14 +553,22 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CheckoutResponseDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResponseDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Create checkout session",
-        "tags": ["Payments"]
+        "tags": [
+          "Payments"
+        ]
       }
     },
     "/v1/payments/{id}": {
@@ -316,7 +579,9 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -324,122 +589,563 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PaymentDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDto"
+                }
               }
             }
           }
         },
-        "security": [{ "bearer": [] }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "summary": "Get payment",
-        "tags": ["Payments"]
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/v1/api/copilotkit/info": {
+      "get": {
+        "operationId": "AgentProxyController_handleInfo_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "post": {
+        "operationId": "AgentProxyController_handleInfo_post",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "put": {
+        "operationId": "AgentProxyController_handleInfo_put",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "delete": {
+        "operationId": "AgentProxyController_handleInfo_delete",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "patch": {
+        "operationId": "AgentProxyController_handleInfo_patch",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "options": {
+        "operationId": "AgentProxyController_handleInfo_options",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "head": {
+        "operationId": "AgentProxyController_handleInfo_head",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "search": {
+        "operationId": "AgentProxyController_handleInfo_search",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      }
+    },
+    "/v1/api/copilotkit/health": {
+      "get": {
+        "operationId": "AgentProxyController_handleHealth_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "post": {
+        "operationId": "AgentProxyController_handleHealth_post",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "put": {
+        "operationId": "AgentProxyController_handleHealth_put",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "delete": {
+        "operationId": "AgentProxyController_handleHealth_delete",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "patch": {
+        "operationId": "AgentProxyController_handleHealth_patch",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "options": {
+        "operationId": "AgentProxyController_handleHealth_options",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "head": {
+        "operationId": "AgentProxyController_handleHealth_head",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
+      },
+      "search": {
+        "operationId": "AgentProxyController_handleHealth_search",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       }
     },
     "/v1/api/copilotkit/{path}": {
       "get": {
         "operationId": "AgentProxyController_handle_get",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "post": {
         "operationId": "AgentProxyController_handle_post",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "put": {
         "operationId": "AgentProxyController_handle_put",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "delete": {
         "operationId": "AgentProxyController_handle_delete",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "patch": {
         "operationId": "AgentProxyController_handle_patch",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "options": {
         "operationId": "AgentProxyController_handle_options",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "head": {
         "operationId": "AgentProxyController_handle_head",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "search": {
         "operationId": "AgentProxyController_handle_search",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       }
     },
     "/v1/api/copilotkit": {
       "get": {
         "operationId": "AgentProxyController_handleRoot_get",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "post": {
         "operationId": "AgentProxyController_handleRoot_post",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "put": {
         "operationId": "AgentProxyController_handleRoot_put",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "delete": {
         "operationId": "AgentProxyController_handleRoot_delete",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "patch": {
         "operationId": "AgentProxyController_handleRoot_patch",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "options": {
         "operationId": "AgentProxyController_handleRoot_options",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "head": {
         "operationId": "AgentProxyController_handleRoot_head",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       },
       "search": {
         "operationId": "AgentProxyController_handleRoot_search",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AgentProxy"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AgentProxy"
+        ]
       }
     },
     "/v1/admin/overview": {
       "get": {
         "operationId": "AdminOverviewController_get",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["AdminOverview"]
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AdminOverview"
+        ]
+      }
+    },
+    "/v1/notifications": {
+      "get": {
+        "operationId": "NotificationsController_list",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Max items to return (default 50)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "unreadOnly",
+            "required": false,
+            "in": "query",
+            "description": "Only return unread notifications",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by notification type or category (orders, payments, etc.)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List notifications for the current authenticated user or admin",
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/v1/notifications/unread-count": {
+      "get": {
+        "operationId": "NotificationsController_getUnreadCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get unread notifications count for badge display",
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/v1/notifications/{id}/read": {
+      "patch": {
+        "operationId": "NotificationsController_markAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Notification ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification marked as read"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a notification as read",
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/v1/notifications/read-all": {
+      "post": {
+        "operationId": "NotificationsController_markAllAsRead",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "All notifications marked as read"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark all notifications as read for current user",
+        "tags": [
+          "Notifications"
+        ]
       }
     }
   },
@@ -453,23 +1159,49 @@
   "servers": [],
   "components": {
     "securitySchemes": {
-      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
     },
     "schemas": {
       "CurrentUserDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "clerkId": { "type": "string" },
-          "email": { "type": "string" },
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "displayName": { "type": "string" },
-          "imageUrl": { "type": "string" },
-          "role": { "type": "string" },
-          "status": { "type": "string" },
-          "createdAt": { "type": "string" },
-          "updatedAt": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "clerkId": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
         },
         "required": [
           "id",
@@ -488,32 +1220,75 @@
       "MoneyDto": {
         "type": "object",
         "properties": {
-          "amountMinor": { "type": "number" },
-          "currency": { "type": "string" }
+          "amountMinor": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          }
         },
-        "required": ["amountMinor", "currency"]
+        "required": [
+          "amountMinor",
+          "currency"
+        ]
       },
       "ProductDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "slug": { "type": "string" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "price": { "$ref": "#/components/schemas/MoneyDto" },
-          "stockQuantity": { "type": "number" },
-          "status": { "type": "string" },
-          "createdAt": { "type": "string" },
-          "updatedAt": { "type": "string" },
-          "sku": { "type": "string" },
-          "categorySlug": { "type": "string" },
-          "reorderPoint": { "type": "number" },
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/MoneyDto"
+          },
+          "stockQuantity": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "categorySlug": {
+            "type": "string"
+          },
+          "reorderPoint": {
+            "type": "number"
+          },
           "images": {
             "type": "object",
-            "additionalProperties": { "type": "string" }
+            "additionalProperties": {
+              "type": "string"
+            }
           },
-          "colors": { "type": "array", "items": { "type": "string" } },
-          "sizes": { "type": "array", "items": { "type": "string" } }
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
         "required": [
           "id",
@@ -536,41 +1311,78 @@
       "PageInfoDto": {
         "type": "object",
         "properties": {
-          "hasNextPage": { "type": "boolean" },
-          "nextPageToken": { "type": "string" }
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
         },
-        "required": ["hasNextPage", "nextPageToken"]
+        "required": [
+          "hasNextPage",
+          "nextPageToken"
+        ]
       },
       "ListProductsResponseDto": {
         "type": "object",
         "properties": {
           "products": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProductDto" }
+            "items": {
+              "$ref": "#/components/schemas/ProductDto"
+            }
           },
-          "pageInfo": { "$ref": "#/components/schemas/PageInfoDto" }
+          "pageInfo": {
+            "$ref": "#/components/schemas/PageInfoDto"
+          }
         },
-        "required": ["products", "pageInfo"]
+        "required": [
+          "products",
+          "pageInfo"
+        ]
       },
       "CreateOrderItemDto": {
         "type": "object",
         "properties": {
-          "productId": { "type": "string" },
-          "quantity": { "type": "number" }
+          "productId": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
         },
-        "required": ["productId", "quantity"]
+        "required": [
+          "productId",
+          "quantity"
+        ]
       },
       "ShippingAddressDto": {
         "type": "object",
         "properties": {
-          "recipientName": { "type": "string" },
-          "phone": { "type": "string" },
-          "line1": { "type": "string" },
-          "line2": { "type": "string" },
-          "city": { "type": "string" },
-          "province": { "type": "string" },
-          "postalCode": { "type": "string" },
-          "countryCode": { "type": "string" }
+          "recipientName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "line1": {
+            "type": "string"
+          },
+          "line2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          }
         },
         "required": [
           "recipientName",
@@ -586,23 +1398,40 @@
         "properties": {
           "items": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/CreateOrderItemDto" }
+            "items": {
+              "$ref": "#/components/schemas/CreateOrderItemDto"
+            }
           },
           "shippingAddress": {
             "$ref": "#/components/schemas/ShippingAddressDto"
           },
-          "idempotencyKey": { "type": "string" }
+          "idempotencyKey": {
+            "type": "string"
+          }
         },
-        "required": ["items", "shippingAddress"]
+        "required": [
+          "items",
+          "shippingAddress"
+        ]
       },
       "OrderItemDto": {
         "type": "object",
         "properties": {
-          "productId": { "type": "string" },
-          "productName": { "type": "string" },
-          "quantity": { "type": "number" },
-          "unitPrice": { "$ref": "#/components/schemas/MoneyDto" },
-          "lineTotal": { "$ref": "#/components/schemas/MoneyDto" }
+          "productId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unitPrice": {
+            "$ref": "#/components/schemas/MoneyDto"
+          },
+          "lineTotal": {
+            "$ref": "#/components/schemas/MoneyDto"
+          }
         },
         "required": [
           "productId",
@@ -615,23 +1444,45 @@
       "OrderDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "userId": { "type": "string" },
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
           "items": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/OrderItemDto" }
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            }
           },
-          "subtotal": { "$ref": "#/components/schemas/MoneyDto" },
-          "total": { "$ref": "#/components/schemas/MoneyDto" },
+          "subtotal": {
+            "$ref": "#/components/schemas/MoneyDto"
+          },
+          "total": {
+            "$ref": "#/components/schemas/MoneyDto"
+          },
           "shippingAddress": {
             "$ref": "#/components/schemas/ShippingAddressDto"
           },
-          "status": { "type": "string" },
-          "paymentStatus": { "type": "string" },
-          "createdAt": { "type": "string" },
-          "updatedAt": { "type": "string" },
-          "customerName": { "type": "string" },
-          "customerEmail": { "type": "string" }
+          "status": {
+            "type": "string"
+          },
+          "paymentStatus": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "customerEmail": {
+            "type": "string"
+          }
         },
         "required": [
           "id",
@@ -653,38 +1504,79 @@
         "properties": {
           "orders": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/OrderDto" }
+            "items": {
+              "$ref": "#/components/schemas/OrderDto"
+            }
           },
-          "pageInfo": { "$ref": "#/components/schemas/PageInfoDto" }
+          "pageInfo": {
+            "$ref": "#/components/schemas/PageInfoDto"
+          }
         },
-        "required": ["orders", "pageInfo"]
+        "required": [
+          "orders",
+          "pageInfo"
+        ]
       },
       "CheckoutBodyDto": {
         "type": "object",
         "properties": {
-          "orderId": { "type": "string" },
-          "successUrl": { "type": "string" },
-          "cancelUrl": { "type": "string" },
-          "idempotencyKey": { "type": "string" }
+          "orderId": {
+            "type": "string"
+          },
+          "successUrl": {
+            "type": "string"
+          },
+          "cancelUrl": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          }
         },
-        "required": ["orderId", "successUrl", "cancelUrl"]
+        "required": [
+          "orderId",
+          "successUrl",
+          "cancelUrl"
+        ]
       },
       "CheckoutResponseDto": {
         "type": "object",
-        "properties": { "sessionUrl": { "type": "string" } },
-        "required": ["sessionUrl"]
+        "properties": {
+          "sessionUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionUrl"
+        ]
       },
       "PaymentDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "orderId": { "type": "string" },
-          "userId": { "type": "string" },
-          "amount": { "$ref": "#/components/schemas/MoneyDto" },
-          "status": { "type": "string" },
-          "provider": { "type": "string" },
-          "providerPaymentId": { "type": "string" },
-          "createdAt": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/MoneyDto"
+          },
+          "status": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "providerPaymentId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
         },
         "required": [
           "id",
@@ -695,6 +1587,76 @@
           "provider",
           "providerPaymentId",
           "createdAt"
+        ]
+      },
+      "NotificationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "targetRole": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ORDER_CREATED",
+              "ORDER_SHIPPED",
+              "ORDER_CANCELLED",
+              "PAYMENT_SUCCESS",
+              "PAYMENT_FAILED",
+              "PRODUCT_LOW_STOCK",
+              "NEW_CUSTOMER",
+              "SYSTEM_ALERT"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          },
+          "href": {
+            "type": "string"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "readAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "title",
+          "message",
+          "read",
+          "createdAt"
+        ]
+      },
+      "UnreadCountDto": {
+        "type": "object",
+        "properties": {
+          "unreadCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "unreadCount"
         ]
       }
     }

@@ -32,11 +32,11 @@ This project is part of an integrated 4-part microservices platform:
 
 ## 🌟 Core Features
 
-- 🛍️ **Product Catalog & Discovery**: Instant search, category filters, and high-resolution product showcases.
+- 🛍️ **Product Catalog & Dynamic Color Variants**: Instant search, category filters, interactive color swatch switching, and intelligent fallback to main image.
 - 🎨 **Featured Hero Banner**: Prominent showcase banner for seasonal highlights and campaigns.
 - 🧺 **Cart Management**: Add, update quantity, remove items, and calculate pricing totals automatically.
 - 💳 **Stripe Online Checkout**: Direct integration with Stripe payment processing.
-- 📦 **Order Tracking**: Review purchase history, live fulfillment milestones, and delivery tracking.
+- 📦 **Order Tracking & Self-Service Cancellation**: Review purchase history, live fulfillment milestones, and self-service order cancellation for pending payment orders.
 - 🔐 **Authentication via Clerk**: Instant Google OAuth, email verification, and session persistence.
 - 🛡️ **Admin Role Detection**: Detects admin privileges and provides a one-click jump to the Admin Dashboard.
 

@@ -25,7 +25,7 @@ This project is part of an integrated 4-part microservices platform:
 
 1. **Next.js 16 App Router & Turbopack**: Replaced the basic legacy React 18 single-page app with Next.js 16 Server Components, delivering fast initial page loads, streaming SSR, and automated SEO optimization.
 2. **Modern Responsive UI**: Built with Tailwind CSS v4, featuring a clean hero showcase banner, responsive product grid, and streamlined checkout flow.
-3. **Internal API Rewrites (No CORS Issues)**: All frontend requests pass through Next.js internal rewrites (`/api/backend/:path*` -> `BACKEND_API_URL`), protecting internal backend endpoints from browser inspection and eliminating cross-origin errors.
+3. **Internal API & Media Rewrites (No CORS Issues)**: All frontend requests pass through Next.js internal rewrites (`/api/backend/:path*` -> `BACKEND_API_URL` and `/v1/media/:path*` -> `BACKEND_API_URL/v1/media/:path*`), protecting internal backend endpoints from browser inspection, enabling seamless private S3 media streaming, and eliminating cross-origin errors.
 4. **Seamless Interconnection with Admin Dashboard**: Includes an automatic admin role detector (`AdminAccountNotice` component); when an administrator logs in, the banner presents a direct shortcut to the Admin Dashboard (`NEXT_PUBLIC_ADMIN_DASHBOARD_URL`).
 
 ---

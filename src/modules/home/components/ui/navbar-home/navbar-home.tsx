@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { PackageCheck, Sun, Moon, Menu, X } from "lucide-react";
+import { PackageCheck, Sun, Moon, Menu, X, Search } from "lucide-react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { SearchBar } from "../search-bar";
 import ShoppingCartIcon from "@/modules/cart/components/ui/shoppingIconcart";
@@ -17,6 +17,7 @@ export const NavbarHome = () => {
 
   const [isDark, setIsDark] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   useEffect(() => {
     const isDarkMode = document.documentElement.classList.contains("dark");
@@ -24,12 +25,13 @@ export const NavbarHome = () => {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Close mobile drawer on navigation
+  // Close mobile drawer and search on navigation
   const currentPathKey = `${pathname}?${searchParams.toString()}`;
   const [prevPathKey, setPrevPathKey] = useState(currentPathKey);
   if (prevPathKey !== currentPathKey) {
     setPrevPathKey(currentPathKey);
     setMobileMenuOpen(false);
+    setMobileSearchOpen(false);
   }
 
   const toggleTheme = () => {
@@ -91,7 +93,21 @@ export const NavbarHome = () => {
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
-          <SearchBar />
+          <SearchBar className="hidden md:flex w-52 lg:w-72 xl:w-80" />
+
+          {/* MOBILE SEARCH TOGGLE */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileSearchOpen(!mobileSearchOpen);
+              if (mobileMenuOpen) setMobileMenuOpen(false);
+            }}
+            className="md:hidden border border-outline h-8 w-8 flex items-center justify-center text-primary hover:bg-surface-container transition-colors shadow-hard-sm"
+            aria-label="Toggle search"
+            title="Search products"
+          >
+            {mobileSearchOpen ? <X className="w-3.5 h-3.5" /> : <Search className="w-3.5 h-3.5" />}
+          </button>
 
           {/* THEME TOGGLE */}
           <button
@@ -142,7 +158,10 @@ export const NavbarHome = () => {
           {/* MOBILE MENU TOGGLE */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen);
+              if (mobileSearchOpen) setMobileSearchOpen(false);
+            }}
             className="lg:hidden border border-outline h-8 w-8 flex items-center justify-center text-primary hover:bg-surface-container transition-colors shadow-hard-sm"
             aria-label="Toggle mobile menu"
           >
@@ -151,12 +170,23 @@ export const NavbarHome = () => {
         </div>
       </div>
 
+      {/* MOBILE SEARCH EXPANDABLE BAR */}
+      {mobileSearchOpen && (
+        <div className="md:hidden border-t border-outline bg-surface-container-lowest p-3 shadow-hard-md animate-fadeIn">
+          <SearchBar
+            className="w-full"
+            autoFocus
+            placeholder="SEARCH ALL PRODUCTS..."
+          />
+        </div>
+      )}
+
       {/* MOBILE DRAWER / SLIDE-DOWN PANEL */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-outline bg-surface-container-lowest p-4 shadow-hard-md animate-fadeIn">
           {/* Mobile Search */}
           <div className="mb-4">
-            <SearchBar className="flex w-full" />
+            <SearchBar className="w-full" placeholder="SEARCH ALL PRODUCTS..." />
           </div>
 
           {/* Navigation links */}

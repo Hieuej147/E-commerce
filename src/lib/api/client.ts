@@ -8,7 +8,7 @@ export type ApiClient = <T>(path: string, init?: RequestInit) => Promise<T>;
 
 // Browser requests go through the Next.js same-origin proxy so they do not
 // depend on CORS or on a stale NEXT_PUBLIC_API_URL value in the client bundle.
-export const API_BASE_URL = "/api/backend/v1";
+export const API_BASE_URL = "/api/backend";
 
 export async function apiRequest<T>(
   path: string,

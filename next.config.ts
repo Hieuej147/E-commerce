@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "api.hieudev.click",
+      },
+      {
+        protocol: "https",
         hostname: "**.amazonaws.com",
       },
       ...(customStorageHost ? [{ protocol: "https", hostname: customStorageHost } as const] : []),
@@ -50,6 +54,10 @@ const nextConfig: NextConfig = {
       {
         source: "/api/backend/:path*",
         destination: `${process.env.BACKEND_API_URL || "http://api-gateway:3000"}/:path*`,
+      },
+      {
+        source: "/v1/media/:path*",
+        destination: `${process.env.BACKEND_API_URL || "http://api-gateway:3000"}/v1/media/:path*`,
       },
     ];
   },

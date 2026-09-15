@@ -52,11 +52,12 @@ export async function listProducts(params: ProductListParams = {}) {
 
   const suffix = query.size ? "?" + query.toString() : "";
   return apiRequest<{
-    products: ProductApiDto[];
-    pageInfo: ProductListResponse["pageInfo"];
+    products?: ProductApiDto[];
+    pageInfo?: ProductListResponse["pageInfo"];
   }>("/products" + suffix).then((response) => ({
     ...response,
-    products: response.products.map(normalizeProduct),
+    products: (response?.products ?? []).map(normalizeProduct),
+    pageInfo: response?.pageInfo ?? { hasNextPage: false, nextPageToken: "" },
   }));
 }
 

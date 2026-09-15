@@ -40,7 +40,7 @@ export function ProductsListClient({
 
   const products = useMemo(() => {
     const allProducts =
-      productsQuery.data?.pages.flatMap((page) => page.products) ?? [];
+      productsQuery.data?.pages.flatMap((page) => page?.products ?? []) ?? [];
 
     return allProducts
       .filter((product) => {

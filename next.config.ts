@@ -15,8 +15,24 @@ const rawBackendUrl = (
 const backendOrigin = rawBackendUrl.replace(/\/v1\/?$/, "");
 const backendApiV1 = `${backendOrigin}/v1`;
 
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com https://js.stripe.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  img-src 'self' data: blob: https:;
+  font-src 'self' https://fonts.gstatic.com data:;
+  connect-src 'self' https: wss:;
+  frame-src 'self' https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com https://js.stripe.com https://hooks.stripe.com;
+  worker-src 'self' blob:;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self';
+`.replace(/\s{2,}/g, " ").trim();
+
 const nextConfig: NextConfig = {
   output: "standalone",
+  poweredByHeader: false,
   transpilePackages: ["three"],
   images: {
     dangerouslyAllowLocalIP: true,
@@ -57,6 +73,39 @@ const nextConfig: NextConfig = {
         ? [{ protocol: "https", hostname: customStorageHost } as const]
         : []),
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains; preload",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: cspHeader,
+          },
+        ],
+      },
+    ];
   },
   async rewrites() {
     return [

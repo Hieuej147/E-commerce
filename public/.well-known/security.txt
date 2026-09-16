@@ -1,0 +1,5 @@
+Contact: mailto:security@hieudev.click
+Expires: 2027-09-16T00:00:00.000Z
+Preferred-Languages: en, vi
+Canonical: https://store.hieudev.click/.well-known/security.txt
+Policy: https://store.hieudev.click/security

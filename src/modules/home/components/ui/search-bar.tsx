@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, X, Loader2 } from "lucide-react";
 
@@ -20,15 +20,16 @@ export const SearchBar = ({
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const initialSearch = searchParams.get("search") || "";
-  const [keyword, setKeyword] = useState(initialSearch);
+  const currentSearchParam = searchParams.get("search") || "";
+  const [prevSearchParam, setPrevSearchParam] = useState(currentSearchParam);
+  const [keyword, setKeyword] = useState(currentSearchParam);
   const [isPending, startTransition] = useTransition();
 
-  // Keep local input in sync if URL search param changes from outside (e.g. back/forward navigation)
-  useEffect(() => {
-    const current = searchParams.get("search") || "";
-    setKeyword(current);
-  }, [searchParams]);
+  // Adjust state during render when URL query param changes from outside (e.g. back/forward navigation)
+  if (prevSearchParam !== currentSearchParam) {
+    setPrevSearchParam(currentSearchParam);
+    setKeyword(currentSearchParam);
+  }
 
   // Global keyboard shortcuts: press '/' or 'Cmd+K' / 'Ctrl+K' to focus search, 'Esc' to blur
   useEffect(() => {
@@ -57,39 +58,44 @@ export const SearchBar = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const triggerSearch = (term: string) => {
-    const trimmed = term.trim();
-    const params = new URLSearchParams(searchParams.toString());
+  const triggerSearch = useCallback(
+    (term: string) => {
+      const trimmed = term.trim();
+      const params = new URLSearchParams(searchParams.toString());
 
-    if (trimmed) {
-      params.set("search", trimmed);
-    } else {
-      params.delete("search");
-    }
+      if (trimmed) {
+        params.set("search", trimmed);
+      } else {
+        params.delete("search");
+      }
 
-    // Reset cursor token when search changes
-    params.delete("pageToken");
+      // Reset cursor token when search changes
+      params.delete("pageToken");
 
-    const targetBase = pathname === "/" ? "/products" : pathname;
-    const queryString = params.toString();
-    const targetUrl = queryString ? `${targetBase}?${queryString}` : targetBase;
+      const targetBase = pathname === "/" ? "/products" : pathname;
+      const queryString = params.toString();
+      const targetUrl = queryString ? `${targetBase}?${queryString}` : targetBase;
 
-    startTransition(() => {
-      router.push(targetUrl, { scroll: false });
-    });
-  };
+      startTransition(() => {
+        router.push(targetUrl, { scroll: false });
+      });
+    },
+    [pathname, router, searchParams],
+  );
 
   // Debounce search on typing
   useEffect(() => {
+    const currentInUrl = searchParams.get("search") || "";
+    if (keyword.trim() === currentInUrl) {
+      return;
+    }
+
     const timer = setTimeout(() => {
-      const currentInUrl = searchParams.get("search") || "";
-      if (keyword.trim() !== currentInUrl) {
-        triggerSearch(keyword);
-      }
+      triggerSearch(keyword);
     }, 350);
 
     return () => clearTimeout(timer);
-  }, [keyword]);
+  }, [keyword, searchParams, triggerSearch]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
